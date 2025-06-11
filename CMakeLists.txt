@@ -9,7 +9,11 @@ set(SDL2_LIBRARY_DIR "C:/mingw_dev_lib/lib")
 
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(SDL2_PROJECT main.c)
 
+add_executable(SDL2_PROJECT main.c)
 target_link_directories(SDL2_PROJECT PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_libraries(SDL2_PROJECT SDL2 SDL2main)
+
+add_executable(Aula-2-Close-window Aula-2-Close-window/main.c)
+target_link_directories(Aula-2-Close-window PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_libraries(Aula-2-Close-window SDL2 SDL2main)
