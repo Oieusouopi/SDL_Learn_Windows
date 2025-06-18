@@ -108,7 +108,7 @@ bool sdl_initialize(Game *game) {
 }
 
 bool load_media(Game *game) {
-    game->texture = IMG_LoadTexture(game->renderer, "../images/background.jpg");
+    game->texture = IMG_LoadTexture(game->renderer, "../Images/background.jpg");
 
     if (!game->texture) {
         fprintf(stderr, "Erro ao iniciar a textura: %s\n", IMG_GetError());

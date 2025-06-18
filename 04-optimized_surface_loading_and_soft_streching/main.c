@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdbool.h>
 //
 // Created by eec on 14/06/25.
@@ -36,7 +36,7 @@ SDL_Window *gWindow = NULL;
 //The surface contained by the window
 SDL_Surface *gSurface = NULL;
 
-//The images that correspond to a keypress
+//The Images that correspond to a keypress
 SDL_Surface* gKeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 
 //Current displayed image
@@ -116,31 +116,31 @@ bool init() {
 
 bool load_media() {
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = loadSurface("../Images/bmp/image_1.bmp");
+    gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] = loadSurface("../Images/bmp/background_1.bmp");
     if (gKeyPressSurfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL) {
         fprintf(stderr, "Deu erro ao carregar a imagem!\n");
         return true;
     }
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] = loadSurface("../Images/bmp/image_2.bmp");
+    gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] = loadSurface("../Images/bmp/background_2.bmp");
     if (gKeyPressSurfaces[KEY_PRESS_SURFACE_UP] == NULL) {
         fprintf(stderr, "Deu erro ao carregar a imagem!\n");
         return true;
     }
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] = loadSurface("../Images/bmp/image_3.bmp");
+    gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] = loadSurface("../Images/bmp/background_3.bmp");
     if (gKeyPressSurfaces[KEY_PRESS_SURFACE_DOWN] == NULL) {
         fprintf(stderr, "Deu erro ao carregar a imagem!\n");
         return true;
     }
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] = loadSurface("../Images/bmp/image_4.bmp");
+    gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] = loadSurface("../Images/bmp/background_4.bmp");
     if (gKeyPressSurfaces[KEY_PRESS_SURFACE_LEFT] == NULL) {
         fprintf(stderr, "Deu erro ao carregar a imagem\n");
         return true;
     }
 
-    gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] = loadSurface("../Images/bmp/image_5.bmp");
+    gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] = loadSurface("../Images/bmp/background_5.bmp");
     if (gKeyPressSurfaces[KEY_PRESS_SURFACE_RIGHT] == NULL) {
         fprintf(stderr, "Deu erro ao carregar a imagem\n");
         return true;

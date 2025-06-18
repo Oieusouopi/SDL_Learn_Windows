@@ -35,7 +35,7 @@ SDL_Window *gWindow = NULL;
 //The surface contained by the window
 SDL_Surface *gSurface = NULL;
 
-//The images that correspond to a keypress
+//The Images that correspond to a keypress
 SDL_Surface* gKeyPressSurfaces[ KEY_PRESS_SURFACE_TOTAL ];
 
 //Current displayed image

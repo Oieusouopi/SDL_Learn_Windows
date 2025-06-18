@@ -1,6 +1,6 @@
 #include <SDL_image.h>
 #include <stdio.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdbool.h>
 //
 // Created by eec on 15/06/25.
@@ -8,7 +8,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define IMG_FLAG IMG_INIT_PNG
+#define IMG_FLAG IMG_INIT_JPG
 
 // Janela Global
 SDL_Window* gWindow = NULL;
@@ -144,21 +144,21 @@ void closeSDL(int status) {
 
 bool loadMedia() {
 
-    texture_1 = generateTexture("../Images/png/image_1.png");
+    texture_1 = generateTexture("../Images/jpg/background_1.jpg");
 
     if (texture_1 == NULL) {
         fprintf(stderr,"Deu erro ao gerar a textura: %s\n", IMG_GetError());
         return true;
     }
 
-    texture_2 = generateTexture("../Images/png/image_2.png");
+    texture_2 = generateTexture("../Images/jpg/background_2.jpg");
 
     if (texture_2 == NULL) {
         fprintf(stderr, "Deu erro ao gerar a textura %s\n", IMG_GetError());
         return true;
     }
 
-    texture_3 = generateTexture("../Images/png/image_3.png");
+    texture_3 = generateTexture("../Images/jpg/background_3.jpg");
 
     if (texture_3 == NULL) {
         fprintf(stderr, "Deu erro ao gerar a textura %s\n", IMG_GetError());

@@ -27,3 +27,49 @@ target_link_libraries(Aula-3-Background
         SDL2main
         SDL2_image
 )
+
+add_executable(04-optimized_surface_loading_and_soft_streching 04-optimized_surface_loading_and_soft_streching/main.c)
+target_link_directories(04-optimized_surface_loading_and_soft_streching PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(04-optimized_surface_loading_and_soft_streching PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(04-optimized_surface_loading_and_soft_streching
+        SDL2
+        SDL2main
+        SDL2_image
+)
+
+add_executable(05_extension_libraries_and_loading_other_image_formats 05_extension_libraries_and_loading_other_image_formats/main.c)
+target_link_directories(05_extension_libraries_and_loading_other_image_formats PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(05_extension_libraries_and_loading_other_image_formats PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(05_extension_libraries_and_loading_other_image_formats
+        SDL2
+        SDL2main
+        SDL2_image
+)
+
+add_executable(06_Geometry_rendering 06_Geometry_rendering/main.c)
+target_link_directories(06_Geometry_rendering PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(06_Geometry_rendering PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(06_Geometry_rendering
+        SDL2
+        SDL2main
+        SDL2_image
+)
+
+add_executable(07_ViewPort 07_ViewPort/main.c)
+target_link_directories(07_ViewPort PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(07_ViewPort PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(07_ViewPort
+        SDL2
+        SDL2main
+        SDL2_image
+)
+
+add_executable(08-color-keying 08-color-keying/main.c 08-color-keying/headers/LTexture.h
+        08-color-keying/LTexture.c)
+target_link_directories(08-color-keying PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(08-color-keying PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(08-color-keying
+        SDL2
+        SDL2main
+        SDL2_image
+)

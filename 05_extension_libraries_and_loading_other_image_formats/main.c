@@ -1,13 +1,13 @@
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <SDL_image.h>
 #include <stdbool.h>
 //
 // Created by eec on 14/06/25.
 //
 #define WIDTH 600
 #define  HEIGHT 800
-#define IMG_FLAG IMG_INIT_PNG
+#define IMG_FLAG IMG_INIT_JPG
 
 //Starts up SDL and creates window
 bool init();
@@ -98,7 +98,7 @@ bool init() {
 
 bool load_media() {
 
-    gTexture = loadTexture("../Images/png/image_1.png");
+    gTexture = loadTexture("../Images/jpg/background_1.jpg");
 
     if (!gTexture) {
         fprintf(stderr, "Erro ao carregar a textura! %s\n", IMG_GetError());
