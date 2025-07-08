@@ -30,6 +30,9 @@ int LTexture_GetHeight(LTexture* lt) {
 }
 
 bool LTexture_loadFromFile(LTexture* lt, SDL_Renderer* renderer, const char* path) {
+
+    LTexture_Free(lt);
+
     SDL_Texture* newTexture = NULL;
 
     SDL_Surface* loadedSurface = IMG_Load(path);
@@ -39,6 +42,19 @@ bool LTexture_loadFromFile(LTexture* lt, SDL_Renderer* renderer, const char* pat
     }
 
     SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
+
+    newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+    if (newTexture == NULL) {
+        printf("Não foi possivel criar a textura de %s! Erro SDL: %s\n", path, SDL_GetError());
+        return true;
+    }
+
+    lt->width = loadedSurface->w;
+    lt->height = loadedSurface->h;
+
+    SDL_FreeSurface(loadedSurface);
+
+    lt->texture = newTexture;
 
     return false;
 }
