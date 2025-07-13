@@ -2,6 +2,7 @@
 // Created by rafas on 17/06/2025.
 //
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include "./headers/LTexture.h"
 
@@ -12,8 +13,8 @@ SDL_Window *gWindow = NULL;
 
 SDL_Renderer *gRenderer = NULL;
 
-LTexture gFooTexture;
-LTexture backTexture;
+LTexture *gFooTexture;
+LTexture *backTexture;
 
 // Inicializador SDL
 bool init();
@@ -37,10 +38,18 @@ int main() {
             }
         }
 
-        LTexture_Init(&gFooTexture);
+        SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear(gRenderer);
+
+        LTexture_Render(backTexture, gRenderer, 0, 0 );
+
+        LTexture_Render(gFooTexture, gRenderer, 0, 190);
+
+        SDL_RenderPresent(gRenderer);
     }
 
 }
+
 bool init() {
     if (SDL_Init(SDL_INIT_EVERYTHING)) {
         fprintf(stderr, "Erro ao iniciar o SDL: %s\n", SDL_GetError());
@@ -59,17 +68,36 @@ bool init() {
         return true;
     }
 
+    gFooTexture = malloc(sizeof(LTexture));;
+    LTexture_Init(gFooTexture);
+    if (LTexture_loadFromFile(gFooTexture, gRenderer, "../Images/foo.png")) {
+        printf("Falha ao carregar imagem de textura!\n");
+        return true;
+    }
+
+    backTexture = malloc(sizeof(LTexture));;
+    LTexture_Init(backTexture);
+    if (LTexture_loadFromFile(backTexture, gRenderer, "../Images/back.png")) {
+        printf("Falha ao carregar a imagem de fundo!\n");
+        return true;
+    }
+
     return false;
 }
 
 void closeSDL(int status) {
 
+    LTexture_Free(gFooTexture);
+    LTexture_Free(backTexture);
+
     SDL_DestroyRenderer(gRenderer);
     gRenderer = NULL;
 
     SDL_DestroyWindow(gWindow);
-    SDL_Quit();
     gWindow = NULL;
+
+    IMG_Quit();
+    SDL_Quit();
 
     exit(status);
 }

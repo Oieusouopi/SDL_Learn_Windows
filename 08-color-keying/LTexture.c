@@ -14,7 +14,7 @@ void LTexture_Init(LTexture* lt) {
 
 void LTexture_Free(LTexture* lt) {
     if (lt->texture) {
-        SDL_DestroyTexture(lt);
+        SDL_DestroyTexture(lt->texture);
         lt->width = 0;
         lt->height = 0;
         lt->texture = NULL;
@@ -57,4 +57,10 @@ bool LTexture_loadFromFile(LTexture* lt, SDL_Renderer* renderer, const char* pat
     lt->texture = newTexture;
 
     return false;
+}
+
+void LTexture_Render( LTexture *lt, SDL_Renderer* renderer, int x, int y ) {
+    //Define o espaço de renderização e renderiza na tela
+    SDL_Rect renderQuad = { x, y, lt->width, lt->height };
+    SDL_RenderCopy( renderer, lt->texture, NULL, &renderQuad );
 }
