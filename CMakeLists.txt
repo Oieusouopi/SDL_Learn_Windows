@@ -75,7 +75,9 @@ target_link_libraries(08-color-keying
         SDL2_image
 )
 
-add_executable(09-Clip-Rendering-and-Sprite-Sheets 09-Clip-Rendering-and-Sprite-Sheets/main.c)
+add_executable(09-Clip-Rendering-and-Sprite-Sheets 09-Clip-Rendering-and-Sprite-Sheets/main.c
+        09-Clip-Rendering-and-Sprite-Sheets/LTexture/LTexture.c
+        09-Clip-Rendering-and-Sprite-Sheets/LTexture/LTexture.h)
 target_link_directories(09-Clip-Rendering-and-Sprite-Sheets PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_directories(09-Clip-Rendering-and-Sprite-Sheets PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
 target_link_libraries(09-Clip-Rendering-and-Sprite-Sheets
