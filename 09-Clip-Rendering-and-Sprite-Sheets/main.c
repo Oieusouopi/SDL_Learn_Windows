@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include "LTexture/LTexture.h"
 
-#define WIDTH 500
-#define HEIGHT 300
+#define WIDTH 400
+#define HEIGHT 400
 
 bool init();
 void close(int status);
@@ -126,7 +126,7 @@ bool loadMedia() {
     gSpriteClips[ 2 ].w = 100;
     gSpriteClips[ 2 ].h = 100;
 
-    gSpriteClips[ 3 ].x = 0;
+    gSpriteClips[ 3 ].x = 100;
     gSpriteClips[ 3 ].y = 100;
     gSpriteClips[ 3 ].w = 100;
     gSpriteClips[ 3 ].h = 100;
