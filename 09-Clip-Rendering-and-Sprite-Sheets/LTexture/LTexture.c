@@ -2,6 +2,10 @@
 // Created by rafas on 16/07/2025.
 //
 #include "LTexture.h"
+
+#include <SDL_image.h>
+#include <stdio.h>
+
 #include "SDL.h"
 
 void LTexture_Init(LTexture *lt) {
@@ -25,4 +29,41 @@ int LTexture_GetWidth(LTexture *lt) {
 
 int LTexture_GetHeight(LTexture *lt) {
   return lt->height;
+}
+
+bool LTexture_LoadFromFile(LTexture *lt, SDL_Renderer *renderer, const char* path) {
+  LTexture_Free(lt);
+
+  SDL_Texture *newTexture = NULL;
+  SDL_Surface *loadedSurface = IMG_Load(path);
+  if (loadedSurface == NULL) {
+    printf("Erro ao carregar a imagem, %s \n", IMG_GetError());
+    return true;
+  }
+
+  newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+  if (newTexture == NULL) {
+    printf("Não foi possivel criar a textura de %s! Erro SDL: %s\n", path, SDL_GetError());
+    return true;
+  }
+
+  lt->width = loadedSurface->w;
+  lt->height = loadedSurface->h;
+
+  SDL_FreeSurface(loadedSurface);
+
+  lt->texture = newTexture;
+
+  return false;
+};
+
+void LTexture_Renderer(LTexture *lt, SDL_Renderer *renderer, SDL_Rect *clip, int x, int y) {
+  SDL_Rect renderQuad = {x, y, lt->width, lt->height};
+
+  if (clip != NULL) {
+    renderQuad.w = clip->w;
+    renderQuad.h = clip->h;
+  }
+
+  SDL_RenderCopy(renderer, lt, clip, &renderQuad);
 }
