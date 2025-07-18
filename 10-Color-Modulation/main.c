@@ -10,6 +10,8 @@
 
 SDL_Window *window;
 
+SDL_Renderer *renderer;
+
 bool init();
 void close(int status);
 
@@ -36,7 +38,13 @@ bool init() {
 
     window = SDL_CreateWindow("10-Color-Modulation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
-        printf("Erro janela nao inicializada com sucesso: %s\n", SDL_GetError());
+        printf("Erro ao criar a janela: %s\n", SDL_GetError());
+        return false;
+    }
+
+    renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+        printf("Erro ao criar o renderizador: %s\n", SDL_GetError());
         return false;
     }
 
@@ -44,6 +52,9 @@ bool init() {
 }
 
 void close(int status) {
+    SDL_DestroyRenderer(renderer);
+    renderer = NULL;
+
     SDL_DestroyWindow(window);
     window = NULL;
 
