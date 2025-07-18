@@ -85,7 +85,9 @@ target_link_libraries(09-Clip-Rendering-and-Sprite-Sheets
         SDL2main
         SDL2_image
 )
-add_executable(10-Color-Modulation 10-Color-Modulation/main.c)
+add_executable(10-Color-Modulation 10-Color-Modulation/main.c
+        10-Color-Modulation/LTexture/LTexture.c
+        10-Color-Modulation/LTexture/LTexture.h)
 target_link_directories(10-Color-Modulation PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_directories(10-Color-Modulation PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
 target_link_libraries(10-Color-Modulation
