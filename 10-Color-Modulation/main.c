@@ -4,6 +4,7 @@
 
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #define HEIGHT 200
 #define WIDTH 200
@@ -12,12 +13,22 @@ SDL_Window *window;
 
 SDL_Renderer *renderer;
 
+SDL_Texture *texture;
+
 bool init();
 void close(int status);
+bool loadMedia();
+
+SDL_Texture *generateTexture(char path[]);
 
 int main() {
 
     if (!init()) {
+        printf("Aconteceu algum erro");
+        close(EXIT_FAILURE);
+    }
+
+    if (!loadMedia()) {
         printf("Aconteceu algum erro");
         close(EXIT_FAILURE);
     }
@@ -29,6 +40,11 @@ int main() {
                 close(EXIT_SUCCESS);
             }
         }
+
+        // Render texture to screen
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+        SDL_RenderPresent(renderer);
     }
 }
 
@@ -52,6 +68,9 @@ bool init() {
 }
 
 void close(int status) {
+    SDL_DestroyTexture(texture);
+    texture = NULL;
+
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
 
@@ -61,4 +80,34 @@ void close(int status) {
     SDL_Quit();
 
     exit(status);
+}
+
+bool loadMedia() {
+
+    texture = generateTexture("../Images/full.png");
+    if (texture == NULL) {
+        printf("Erro ao gerar a textura: %s\n", IMG_GetError());
+        return false;
+    }
+
+    return true;
+}
+
+
+SDL_Texture* generateTexture(char path[]) {
+    SDL_Texture *newTexture = NULL;
+
+    SDL_Surface *loadedSurface = IMG_Load(path);
+    if (loadedSurface == NULL) {
+        fprintf(stderr, "Erro ao carregar a imagem: %s\n", IMG_GetError());
+    }
+
+    newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+    if (newTexture == NULL) {
+        fprintf(stderr, "Erro ao carregar a textura: %s\n", IMG_GetError());
+    }
+
+    SDL_FreeSurface(loadedSurface);
+
+    return newTexture;
 }
