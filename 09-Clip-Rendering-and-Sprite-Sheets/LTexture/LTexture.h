@@ -20,6 +20,6 @@ int LTexture_GetWidth(LTexture *lt);
 int LTexture_GetHeight(LTexture *lt);
 
 bool LTexture_LoadFromFile(LTexture *lt, SDL_Renderer *renderer, const char* path);
-void LTexture_Renderer(LTexture *lt, SDL_Renderer *renderer, SDL_Rect *clip = NULL, int x, int y);
+void LTexture_Renderer(LTexture *lt, SDL_Renderer *renderer, SDL_Rect *clip, int x, int y);
 
 #endif //LTEXTURE_H

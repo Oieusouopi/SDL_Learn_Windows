@@ -43,6 +43,25 @@ int main() {
                 close(EXIT_SUCCESS);
             }
         }
+
+        //Clear screen
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear(renderer);
+
+        //Render top left sprite
+        LTexture_Renderer(gTexture, renderer, &gSpriteClips[ 0 ], 0, 0);
+
+        //Render top right sprite
+        LTexture_Renderer(gTexture, renderer, &gSpriteClips[ 1 ], WIDTH - gSpriteClips[ 1 ].w, 0);
+
+        //Render bottom left sprite
+        LTexture_Renderer(gTexture, renderer, &gSpriteClips[ 2 ], 0, HEIGHT - gSpriteClips[ 2 ].y);
+
+        //Render bottom right sprite
+        LTexture_Renderer(gTexture, renderer, &gSpriteClips[ 3 ], WIDTH - gSpriteClips[ 3 ].w, HEIGHT - gSpriteClips[ 3 ].h);
+
+        //UPDATE SCREEN
+        SDL_RenderPresent(renderer);
     }
 }
 
@@ -87,9 +106,9 @@ void close(int status) {
 
 bool loadMedia() {
 
-    if (!LTexture_LoadFromFile(gTexture, renderer, "../Images/sprites.png")) {
+    if (LTexture_LoadFromFile(gTexture, renderer, "../Images/sprites.png")) {
         printf("Falha ao carregar imagem de textura!\n");
-        return true;
+        return false;
     }
 
     gSpriteClips[ 0 ].x = 0;
@@ -107,10 +126,10 @@ bool loadMedia() {
     gSpriteClips[ 2 ].w = 100;
     gSpriteClips[ 2 ].h = 100;
 
-    gSpriteClips[ 0 ].x = 100;
-    gSpriteClips[ 0 ].y = 100;
-    gSpriteClips[ 0 ].w = 100;
-    gSpriteClips[ 0 ].h = 100;
+    gSpriteClips[ 3 ].x = 0;
+    gSpriteClips[ 3 ].y = 100;
+    gSpriteClips[ 3 ].w = 100;
+    gSpriteClips[ 3 ].h = 100;
 
-    return false;
+    return true;
 }

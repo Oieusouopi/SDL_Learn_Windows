@@ -65,5 +65,5 @@ void LTexture_Renderer(LTexture *lt, SDL_Renderer *renderer, SDL_Rect *clip, int
     renderQuad.h = clip->h;
   }
 
-  SDL_RenderCopy(renderer, lt, clip, &renderQuad);
+  SDL_RenderCopy(renderer, lt->texture, clip, &renderQuad);
 }
