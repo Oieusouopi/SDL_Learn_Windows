@@ -5,20 +5,32 @@
 #include <SDL.h>
 #include <SDL_video.h>
 #include <stdio.h>
+#include "LTexture/LTexture.h"
 
 #define WIDTH 500
 #define HEIGHT 300
 
 bool init();
 void close(int status);
+bool loadMedia();
 
 SDL_Window *window = NULL;
 
 SDL_Renderer *renderer = NULL;
 
+SDL_Rect gSpriteClips[ 4 ];
+SDL_Texture *gSpriteSheetTexture;
+
+LTexture *gTexture;
+
 int main() {
 
     if (!init()) {
+        printf("Aconteceu algum erro\n");
+        close(EXIT_FAILURE);
+    }
+
+    if (!loadMedia()) {
         printf("Aconteceu algum erro\n");
         close(EXIT_FAILURE);
     }
@@ -52,10 +64,16 @@ bool init() {
         return false;
     }
 
+    gTexture = malloc(sizeof(LTexture));
+    LTexture_Init(gTexture);
+
     return true;
 }
 
 void close(int status) {
+
+    LTexture_Free(gTexture);
+
     SDL_DestroyWindow(window);
     window = NULL;
 
@@ -65,4 +83,34 @@ void close(int status) {
     SDL_Quit();
 
     exit(status);
+}
+
+bool loadMedia() {
+
+    if (!LTexture_LoadFromFile(gTexture, renderer, "../Images/sprites.png")) {
+        printf("Falha ao carregar imagem de textura!\n");
+        return true;
+    }
+
+    gSpriteClips[ 0 ].x = 0;
+    gSpriteClips[ 0 ].y = 0;
+    gSpriteClips[ 0 ].w = 100;
+    gSpriteClips[ 0 ].h = 100;
+
+    gSpriteClips[ 1 ].x = 100;
+    gSpriteClips[ 1 ].y = 0;
+    gSpriteClips[ 1 ].w = 100;
+    gSpriteClips[ 1 ].h = 100;
+
+    gSpriteClips[ 2 ].x = 0;
+    gSpriteClips[ 2 ].y = 100;
+    gSpriteClips[ 2 ].w = 100;
+    gSpriteClips[ 2 ].h = 100;
+
+    gSpriteClips[ 0 ].x = 100;
+    gSpriteClips[ 0 ].y = 100;
+    gSpriteClips[ 0 ].w = 100;
+    gSpriteClips[ 0 ].h = 100;
+
+    return false;
 }
