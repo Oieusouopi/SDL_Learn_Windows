@@ -31,6 +31,7 @@ void LTexture_Renderer(LTexture *lt, SDL_Renderer *renderer, SDL_Rect *clip, int
         renderQuad.w = clip->w;
     }
 
+    // SDL_RenderCopy(renderer, lt->texture, NULL, NULL);
     SDL_RenderCopy(renderer, lt->texture, clip, &renderQuad);
 }
 
@@ -58,5 +59,9 @@ bool LTexture_LoadFromFile(LTexture *lt, SDL_Renderer *renderer, char path[]) {
     lt->texture = newTexture;
 
     return true;
+}
+
+void LTexture_setColor(LTexture *lt, Uint8 red, Uint8 green, Uint8 blue) {
+    SDL_SetTextureColorMod(lt->texture, red, green, blue);
 }
 

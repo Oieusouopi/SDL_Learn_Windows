@@ -6,20 +6,19 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#define HEIGHT 200
-#define WIDTH 200
+#include "./LTexture/LTexture.h"
+#define HEIGHT 480
+#define WIDTH 640
 
 SDL_Window *window;
 
 SDL_Renderer *renderer;
 
-SDL_Texture *texture;
+LTexture *texture;
 
 bool init();
 void close(int status);
 bool loadMedia();
-
-SDL_Texture *generateTexture(char path[]);
 
 int main() {
 
@@ -33,16 +32,43 @@ int main() {
         close(EXIT_FAILURE);
     }
 
+    Uint8 r = 255;
+    Uint8 g = 255;
+    Uint8 b = 255;
     while ( true ) {
         SDL_Event event;
         while (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT) {
                 close(EXIT_SUCCESS);
+            } else if (event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_q:
+                        r += 32;
+                        break;
+                    case SDLK_w:
+                        g += 32;
+                        break;
+                    case SDLK_e:
+                        b += 32;
+                        break;
+                    case SDLK_a:
+                        r -= 32;
+                        break;
+                    case SDLK_s:
+                        g -+ 32;
+                        break;
+                    case SDLK_d:
+                        b -= 32;
+                        break;
+                }
             }
         }
 
-        // Render texture to screen
-        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        // SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        // SDL_RenderClear(renderer);
+
+        LTexture_setColor(texture, r, g, b);
+        LTexture_Renderer(texture, renderer, NULL, 0, 0);
 
         SDL_RenderPresent(renderer);
     }
@@ -64,12 +90,14 @@ bool init() {
         return false;
     }
 
+    texture = malloc(sizeof(LTexture));
+    LTexture_Init(texture);
+
     return true;
 }
 
 void close(int status) {
-    SDL_DestroyTexture(texture);
-    texture = NULL;
+    LTexture_Free(texture);
 
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
@@ -84,8 +112,7 @@ void close(int status) {
 
 bool loadMedia() {
 
-    texture = generateTexture("../Images/full.png");
-    if (texture == NULL) {
+    if (!LTexture_LoadFromFile(texture, renderer, "../Images/full.png")) {
         printf("Erro ao gerar a textura: %s\n", IMG_GetError());
         return false;
     }
@@ -93,21 +120,3 @@ bool loadMedia() {
     return true;
 }
 
-
-SDL_Texture* generateTexture(char path[]) {
-    SDL_Texture *newTexture = NULL;
-
-    SDL_Surface *loadedSurface = IMG_Load(path);
-    if (loadedSurface == NULL) {
-        fprintf(stderr, "Erro ao carregar a imagem: %s\n", IMG_GetError());
-    }
-
-    newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-    if (newTexture == NULL) {
-        fprintf(stderr, "Erro ao carregar a textura: %s\n", IMG_GetError());
-    }
-
-    SDL_FreeSurface(loadedSurface);
-
-    return newTexture;
-}
