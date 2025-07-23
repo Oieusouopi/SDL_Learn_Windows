@@ -95,3 +95,12 @@ target_link_libraries(10-Color-Modulation
     SDL2main
     SDL2_image
 )
+
+add_executable(11-Alpha-Blending 11-Alpha-Blending/main.c)
+target_link_directories(11-Alpha-Blending PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(11-Alpha-Blending PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(11-Alpha-Blending
+    SDL2
+    SDL2main
+    SDL2_image
+)

@@ -64,8 +64,8 @@ int main() {
             }
         }
 
-        // SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        // SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear(renderer);
 
         LTexture_setColor(texture, r, g, b);
         LTexture_Renderer(texture, renderer, NULL, 0, 0);
