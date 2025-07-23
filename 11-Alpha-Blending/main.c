@@ -6,19 +6,19 @@
 // Created by rafas on 23/07/2025.
 //
 #define HEIGHT 500
-#define WIDTH 400
+#define WIDTH 700
 
 bool init();
 bool loadMedia();
 void close(int status);
-
-SDL_Texture *generateTexture(char path[]);
 
 SDL_Window *window;
 
 SDL_Renderer *renderer;
 
 LTexture *texture;
+
+LTexture *backTexture;
 
 int main() {
 
@@ -42,7 +42,9 @@ int main() {
         }
 
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, texture->texture, NULL, NULL);
+        LTexture_SetAlpha(texture, 127);
+        LTexture_Renderer(backTexture, renderer, NULL, 0,0);
+        LTexture_Renderer(texture, renderer, NULL, 0, 0);
 
         SDL_RenderPresent(renderer);
     }
@@ -66,11 +68,16 @@ bool init() {
     texture = malloc(sizeof(LTexture));
     LTexture_Init(texture);
 
+    backTexture = malloc(sizeof(LTexture));
+    LTexture_Init(backTexture);
 
     return true;
 }
 
 void close(int status) {
+    LTexture_Free(backTexture);
+    backTexture = NULL;
+
     LTexture_Free(texture);
     texture = NULL;
 
@@ -87,13 +94,15 @@ void close(int status) {
 
 bool loadMedia() {
 
-    if (!LTexture_LoadFromFile(texture,renderer, "../Images/jpg/background_1.jpg")) {
+    if (!LTexture_LoadFromFile(texture,renderer, "../Images/alpha100.png")) {
+        return false;
+    } else {
+        LTexture_SetBlendMode(texture,SDL_BLENDMODE_BLEND);
+    }
+
+    if (!LTexture_LoadFromFile(backTexture, renderer, "../Images/background.png")) {
         return false;
     }
 
     return true;
-}
-
-SDL_Texture *generateTexture(char path[]) {
-
 }
