@@ -96,7 +96,9 @@ target_link_libraries(10-Color-Modulation
     SDL2_image
 )
 
-add_executable(11-Alpha-Blending 11-Alpha-Blending/main.c)
+add_executable(11-Alpha-Blending 11-Alpha-Blending/main.c
+        11-Alpha-Blending/LTexture/LTexture.h
+        11-Alpha-Blending/LTexture/LTexture.c)
 target_link_directories(11-Alpha-Blending PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_directories(11-Alpha-Blending PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
 target_link_libraries(11-Alpha-Blending

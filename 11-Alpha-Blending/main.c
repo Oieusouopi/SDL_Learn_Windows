@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
+#include "LTexture/LTexture.h"
 //
 // Created by rafas on 23/07/2025.
 //
@@ -17,7 +18,7 @@ SDL_Window *window;
 
 SDL_Renderer *renderer;
 
-SDL_Texture *texture;
+LTexture *texture;
 
 int main() {
 
@@ -41,7 +42,7 @@ int main() {
         }
 
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, texture , NULL, NULL);
+        SDL_RenderCopy(renderer, texture->texture, NULL, NULL);
 
         SDL_RenderPresent(renderer);
     }
@@ -62,11 +63,17 @@ bool init() {
         return false;
     }
 
+    texture = malloc(sizeof(LTexture));
+    LTexture_Init(texture);
+
 
     return true;
 }
 
 void close(int status) {
+    LTexture_Free(texture);
+    texture = NULL;
+
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
 
@@ -80,9 +87,7 @@ void close(int status) {
 
 bool loadMedia() {
 
-    texture = generateTexture("../Images/jpg/background_1.jpg");
-    if (texture == NULL) {
-        printf("Erro ao iniciar a textura: %s\n", IMG_GetError());
+    if (!LTexture_LoadFromFile(texture,renderer, "../Images/jpg/background_1.jpg")) {
         return false;
     }
 
@@ -90,18 +95,5 @@ bool loadMedia() {
 }
 
 SDL_Texture *generateTexture(char path[]) {
-    SDL_Texture *newTexture = NULL;
-    SDL_Surface *surface = IMG_Load(path);
-    if (surface == NULL) {
-        printf("Erro ao carregar surface: %s\n", IMG_GetError());
-    }
 
-    newTexture = SDL_CreateTextureFromSurface(renderer, surface);
-    if (newTexture == NULL) {
-        printf("Erro ao criar textura\n");
-    }
-
-    SDL_FreeSurface(surface);
-
-    return newTexture;
 }
