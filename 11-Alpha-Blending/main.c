@@ -34,15 +34,31 @@ int main() {
 
     while (true) {
         SDL_Event event;
+        Uint8 alpha;
 
         while (SDL_PollEvent(&event) != 0) {
             if (event.type == SDL_QUIT) {
                 close(EXIT_SUCCESS);
+            } else if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_q) {
+                    if (alpha + 32 > 255) {
+                        alpha = 255;
+                    } else {
+                        alpha += 32;
+                    }
+                } else if (event.key.keysym.sym == SDLK_s) {
+                    if (alpha - 32 < 0) {
+                        alpha = 0;
+                    } else {
+                        alpha -= 32;
+                    }
+                }
+
             }
         }
 
         SDL_RenderClear(renderer);
-        LTexture_SetAlpha(texture, 127);
+        LTexture_SetAlpha(texture, alpha);
         LTexture_Renderer(backTexture, renderer, NULL, 0,0);
         LTexture_Renderer(texture, renderer, NULL, 0, 0);
 
