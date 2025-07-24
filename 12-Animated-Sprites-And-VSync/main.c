@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <stdio.h>
+#include "LTexture/LTexture.h"
 //
 // Created by rafas on 24/07/2025.
 //
@@ -10,6 +11,8 @@
 SDL_Window *window;
 
 SDL_Renderer *renderer;
+
+LTexture *texture;
 
 bool init();
 void close(int status);
@@ -34,6 +37,11 @@ int main() {
                 close(EXIT_SUCCESS);
             }
         }
+
+        SDL_RenderClear(renderer);
+        LTexture_Renderer(texture, renderer, NULL, 0,0);
+        SDL_RenderPresent(renderer);
+
     }
 }
 
@@ -52,10 +60,16 @@ bool init() {
         return false;
     }
 
+    texture = malloc(sizeof(LTexture));
+    LTexture_Init(texture);
+
     return true;
 }
 
 void close(int status) {
+
+    LTexture_Free(texture);
+    texture = NULL;
 
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
@@ -67,6 +81,11 @@ void close(int status) {
 }
 
 bool loadMedia() {
+
+    if (!LTexture_LoadFromFile(texture, renderer, "../Images/alpha100.png")) {
+        printf("Erro ao carregar o arquivo: %s\n", SDL_GetError());
+        return false;
+    }
 
     return true;
 }

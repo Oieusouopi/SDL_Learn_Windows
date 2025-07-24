@@ -107,7 +107,9 @@ target_link_libraries(11-Alpha-Blending
     SDL2_image
 )
 
-add_executable(12-Animated-Sprites-And-VSync 12-Animated-Sprites-And-VSync/main.c)
+add_executable(12-Animated-Sprites-And-VSync 12-Animated-Sprites-And-VSync/main.c
+        12-Animated-Sprites-And-VSync/LTexture/LTexture.h
+        12-Animated-Sprites-And-VSync/LTexture/LTexture.c)
 target_link_directories(12-Animated-Sprites-And-VSync PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_directories(12-Animated-Sprites-And-VSync PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
 target_link_libraries(12-Animated-Sprites-And-VSync
