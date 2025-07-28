@@ -5,8 +5,8 @@
 // Created by rafas on 24/07/2025.
 //
 
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 64
+#define HEIGHT 205
 
 SDL_Window *window;
 

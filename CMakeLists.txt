@@ -117,3 +117,12 @@ target_link_libraries(12-Animated-Sprites-And-VSync
     SDL2main
     SDL2_image
 )
+
+add_executable(13-Rotation-And-Flipping 13-Rotation-And-Flipping/main.c)
+target_link_directories(13-Rotation-And-Flipping PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(13-Rotation-And-Flipping PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(13-Rotation-And-Flipping
+    SDL2
+    SDL2main
+    SDL2_image
+)
