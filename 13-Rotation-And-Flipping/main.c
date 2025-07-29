@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "SDL.h"
+#include "LTexture/LTexture.h"
 
 #define WIDTH 500
 #define HEIGHT 500
@@ -17,9 +18,15 @@ SDL_Window *window;
 
 SDL_Renderer *renderer;
 
+LTexture *texture;
+
 int main() {
 
     if (!init()) {
+        close(EXIT_FAILURE);
+    }
+
+    if (!loadMedia()) {
         close(EXIT_FAILURE);
     }
 
@@ -31,6 +38,11 @@ int main() {
                 close(EXIT_SUCCESS);
             }
         }
+
+        SDL_RenderClear(renderer);
+        LTexture_Renderer(texture, renderer, NULL, 0, 0);
+        SDL_RenderPresent(renderer);
+
     }
 
 }
@@ -49,10 +61,17 @@ bool init() {
         return false;
     }
 
+    texture = malloc(sizeof(LTexture));
+    LTexture_Init(texture);
+
     return true;
 }
 
 void close(int status) {
+
+    LTexture_Free(texture);
+    texture = NULL;
+
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
 
@@ -60,4 +79,13 @@ void close(int status) {
     window = NULL;
 
     exit(status);
+}
+
+bool loadMedia() {
+
+    if (!LTexture_LoadFromFile(texture, renderer, "../Images/foo.png")) {
+        return false;
+    }
+
+    return true;
 }

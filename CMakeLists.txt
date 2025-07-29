@@ -119,7 +119,8 @@ target_link_libraries(12-Animated-Sprites-And-VSync
 )
 
 add_executable(13-Rotation-And-Flipping 13-Rotation-And-Flipping/main.c
-        13-Rotation-And-Flipping/LTexture/LTexture.h)
+        13-Rotation-And-Flipping/LTexture/LTexture.h
+        13-Rotation-And-Flipping/LTexture/LTexture.c)
 target_link_directories(13-Rotation-And-Flipping PRIVATE ${SDL2_LIBRARY_DIR})
 target_link_directories(13-Rotation-And-Flipping PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
 target_link_libraries(13-Rotation-And-Flipping
