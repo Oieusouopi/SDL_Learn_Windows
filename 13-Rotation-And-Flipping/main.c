@@ -30,17 +30,38 @@ int main() {
         close(EXIT_FAILURE);
     }
 
+    double degrees = 0;
+    SDL_RendererFlip flipType = SDL_FLIP_NONE;
+    SDL_Event ev;
     while (true) {
-        SDL_Event ev;
         while (SDL_PollEvent(&ev) != 0) {
 
             if (ev.type == SDL_QUIT) {
                 close(EXIT_SUCCESS);
+            } else if (ev.type == SDL_KEYDOWN) {
+                switch (ev.key.keysym.sym) {
+                    case SDLK_a:
+                        degrees -= 60;
+                        break;
+                    case SDLK_d:
+                        degrees += 60;
+                        break;
+                    case SDLK_q:
+                        flipType = SDL_FLIP_HORIZONTAL;
+                        break;
+                    case SDLK_w:
+                        flipType = SDL_FLIP_NONE;
+                        break;
+                    case SDLK_e:
+                        flipType = SDL_FLIP_VERTICAL;
+                        break;
+                }
             }
         }
 
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
-        LTexture_Renderer(texture, renderer, NULL, 0, 0);
+        LTexture_Renderer(texture, renderer, NULL, (WIDTH - texture->width) / 2, (HEIGHT - texture->height) / 2, degrees, NULL, flipType);
         SDL_RenderPresent(renderer);
 
     }
@@ -85,7 +106,7 @@ void close(int status) {
 
 bool loadMedia() {
 
-    if (!LTexture_LoadFromFile(texture, renderer, "../Images/foo.png")) {
+    if (!LTexture_LoadFromFile(texture, renderer, "../Images/seta.png")) {
         printf("Erro ao carregar o arquivo: %s\n", SDL_GetError());
         return false;
     }

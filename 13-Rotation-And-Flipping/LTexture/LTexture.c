@@ -48,7 +48,7 @@ bool LTexture_LoadFromFile(LTexture* lt, SDL_Renderer *renderer, const char path
     return true;
 }
 
-void LTexture_Renderer(LTexture* lt, SDL_Renderer* renderer, SDL_Rect* clip, int x, int y) {
+void LTexture_Renderer(LTexture* lt, SDL_Renderer* renderer, SDL_Rect* clip, int x, int y, double angle, SDL_Point* center, SDL_RendererFlip flip) {
     SDL_Rect renderQuad = { x, y, lt->width, lt->height };
 
     if (clip != NULL) {
@@ -56,7 +56,7 @@ void LTexture_Renderer(LTexture* lt, SDL_Renderer* renderer, SDL_Rect* clip, int
         renderQuad.w = clip->w;
     }
 
-    SDL_RenderCopy(renderer, lt->texture, clip, &renderQuad);
+    SDL_RenderCopyEx( renderer, lt->texture, clip, &renderQuad, angle, center, flip );
 }
 
 void LTexture_SetColor(LTexture* lt, Uint8 r, Uint8 g, Uint8 b) {
