@@ -28,6 +28,7 @@ bool LTexture_LoadFromFile(LTexture *lt, SDL_Renderer *renderer, const char path
 
     SDL_Surface *surface = IMG_Load(path);
     if (surface == NULL) {
+        printf("Erro ao criar a superficie: %s\n", IMG_GetError());
         return false;
     }
 

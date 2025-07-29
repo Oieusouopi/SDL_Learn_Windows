@@ -53,11 +53,13 @@ bool init() {
 
     window = SDL_CreateWindow("13-rotation-and-flipping", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
+        printf("Deu algum erro ao criar janela: %s\n", SDL_GetError());
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-    if (window == NULL) {
+    if (renderer == NULL) {
+        printf("Erro ao iniciar renderizador: %s\n", SDL_GetError());
         return false;
     }
 
@@ -84,6 +86,7 @@ void close(int status) {
 bool loadMedia() {
 
     if (!LTexture_LoadFromFile(texture, renderer, "../Images/foo.png")) {
+        printf("Erro ao carregar o arquivo: %s\n", SDL_GetError());
         return false;
     }
 
