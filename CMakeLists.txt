@@ -145,3 +145,15 @@ target_link_libraries(14-True-Type-Fonts
     SDL2_image
     SDL2_ttf
 )
+
+add_executable(15-mouse-events 15-mouse-events/main.c
+        15-mouse-events/LTexture/LTexture.c
+        15-mouse-events/LTexture/LTexture.h)
+
+target_link_directories(15-mouse-events PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(15-mouse-events PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_libraries(15-mouse-events
+    SDL2
+    SDL2main
+    SDL2_image
+)
