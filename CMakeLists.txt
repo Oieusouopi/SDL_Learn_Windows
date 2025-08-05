@@ -4,12 +4,16 @@ project(SDL2_PROJECT C)
 add_definitions(-DSDL_MAIN_HANDLED)
 
 set(CMAKE_C_STANDARD 23)
+
 set(SDL2_INCLUDE_DIR "C:/mingw_dev_lib/SDL2/include/SDL2")
 set(SDL2_LIBRARY_DIR "C:/mingw_dev_lib/SDL2/lib")
 set(SDL2_IMAGE_INCLUDE_DIR "C:/mingw_dev_lib/SDL2_IMAGE/include/SDL2")
 set(SDL2_IMAGE_LIBRARY_DIR "C:/mingw_dev_lib/SDL2_IMAGE/lib")
 
-include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR})
+set(SDL2_FONT_INCLUDE_DIR "C:/mingw_dev_lib/SDL2_TTF/include/SDL2")
+set(SDL2_FONT_LIBRARY_DIR "C:/mingw_dev_lib/SDL2_TTF/lib")
+
+include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_FONT_INCLUDE_DIR})
 
 add_executable(SDL2_PROJECT main.c)
 target_link_directories(SDL2_PROJECT PRIVATE ${SDL2_LIBRARY_DIR})
@@ -127,4 +131,17 @@ target_link_libraries(13-Rotation-And-Flipping
     SDL2
     SDL2main
     SDL2_image
+)
+
+add_executable(14-True-Type-Fonts 14-True-Type-Fonts/main.c
+        14-True-Type-Fonts/LTexture/LTexture.h
+        14-True-Type-Fonts/LTexture/LTexture.c)
+target_link_directories(14-True-Type-Fonts PRIVATE ${SDL2_LIBRARY_DIR})
+target_link_directories(14-True-Type-Fonts PRIVATE ${SDL2_IMAGE_LIBRARY_DIR})
+target_link_directories(14-True-Type-Fonts PRIVATE ${SDL2_FONT_LIBRARY_DIR})
+target_link_libraries(14-True-Type-Fonts
+    SDL2
+    SDL2main
+    SDL2_image
+    SDL2_ttf
 )

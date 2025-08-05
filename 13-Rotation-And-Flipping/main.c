@@ -101,6 +101,8 @@ void close(int status) {
     SDL_DestroyWindow(window);
     window = NULL;
 
+    SDL_Quit();
+
     exit(status);
 }
 
