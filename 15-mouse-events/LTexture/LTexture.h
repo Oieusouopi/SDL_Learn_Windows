@@ -16,6 +16,6 @@ typedef struct {
 void LTexture_Init(LTexture* lt);
 void LTexture_Free(LTexture* lt);
 
-bool LTexture_LoadFromFile(LTexture* lt, const char path[]);
+bool LTexture_LoadFromFile(LTexture* lt, SDL_Renderer* renderer, const char path[]);
 
 #endif //LTEXTURE_H

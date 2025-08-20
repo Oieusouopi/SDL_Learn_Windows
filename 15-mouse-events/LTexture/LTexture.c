@@ -37,6 +37,13 @@ bool LTexture_LoadFromFile(LTexture* lt, SDL_Renderer* renderer, const char path
         return false;
     }
 
+    lt->width = surface->w;
+    lt->height = surface->h;
+
+    SDL_FreeSurface(surface);
+
+    lt->texture = newTexture;
+
     return true;
 
 }

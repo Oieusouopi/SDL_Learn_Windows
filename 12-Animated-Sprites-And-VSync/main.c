@@ -51,7 +51,7 @@ int main() {
 
         ++quadros;
 
-        if (quadros / 4 >= QUADRO_PASSOS ) {
+        if (quadros / 6 >= QUADRO_PASSOS ) {
             quadros = 0;
         }
 
